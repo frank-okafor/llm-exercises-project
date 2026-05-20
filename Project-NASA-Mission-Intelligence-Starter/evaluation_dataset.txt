@@ -1,0 +1,70 @@
+# NASA Mission Intelligence System - Evaluation Dataset
+# This file contains test questions for evaluating the RAG system
+# Format: Q: question | Category: category_name
+
+# Overview Questions
+Q: What was the main objective of Apollo 11?
+Category: overview
+
+Q: What was the duration of the Apollo 11 mission?
+Category: overview
+
+Q: What was the goal of the Apollo 13 mission before the accident?
+Category: overview
+
+# Crew Questions
+Q: Who were the crew members of Apollo 11?
+Category: crew
+
+Q: Who were the crew members of Apollo 13?
+Category: crew
+
+Q: What was the role of the Command Module Pilot during Apollo 11?
+Category: crew
+
+# Technical Questions
+Q: What technical components failed in the Challenger accident?
+Category: technical
+
+Q: What was the flight plan structure for Apollo 11?
+Category: technical
+
+Q: What scientific experiments were conducted during Apollo 11?
+Category: technical
+
+Q: What were the communication challenges during Apollo missions?
+Category: technical
+
+# Emergency Questions
+Q: What malfunction created the emergency in Apollo 13?
+Category: emergency
+
+Q: How did the Apollo 13 crew survive the emergency?
+Category: emergency
+
+Q: What immediate actions were taken after the Apollo 13 explosion?
+Category: emergency
+
+# Timeline Questions
+Q: What sequence of events followed the Apollo 13 oxygen tank failure?
+Category: timeline
+
+Q: What were the key milestones during the Apollo 11 lunar landing?
+Category: timeline
+
+Q: What was the timeline of events during the Challenger launch?
+Category: timeline
+
+# Disaster Analysis Questions
+Q: What happened during the Challenger disaster?
+Category: disaster_analysis
+
+Q: What lessons were learned from the Challenger disaster?
+Category: disaster_analysis
+
+Q: What were the contributing factors to the Challenger accident?
+Category: disaster_analysis
+
+Q: How did cold weather affect the Challenger launch?
+Category: disaster_analysis
+

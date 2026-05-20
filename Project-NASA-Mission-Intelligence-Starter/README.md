@@ -2,6 +2,41 @@
 
 A hands-on learning project for building a Retrieval-Augmented Generation (RAG) system with real-time evaluation capabilities. This project teaches students to create a complete RAG pipeline from document processing to interactive chat interface.
 
+## 🚀 Quick Start
+
+### 1. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Set up environment variables
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env and add your API key
+# OPENAI_API_KEY=your-api-key-here
+# OPENAI_BASE_URL=https://openai.vocareum.com/v1
+```
+
+### 3. Run the embedding pipeline
+```bash
+python embedding_pipeline.py --input-dir ./data_text --chroma-dir ./chroma_db --collection-name nasa_missions --chunk-size 1200 --chunk-overlap 200 --update-mode update
+```
+
+### 4. Launch the chat application
+```bash
+streamlit run chat.py
+```
+
+### 5. Test the system
+Ask questions like:
+- "What was the main objective of Apollo 11?"
+- "What happened during the Apollo 13 emergency?"
+- "What caused the Challenger disaster?"
+
+---
+
 ## 🎯 Learning Objectives
 
 By completing this project, students will learn to:

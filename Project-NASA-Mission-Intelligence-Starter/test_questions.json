@@ -1,0 +1,97 @@
+{
+  "description": "NASA Mission Intelligence System Evaluation Dataset",
+  "version": "1.0",
+  "questions": [
+    {
+      "question": "What was the main objective of Apollo 11?",
+      "category": "overview",
+      "mission": "Apollo 11",
+      "ground_truth": "The main objective of Apollo 11 was to perform a crewed lunar landing and return safely to Earth, accomplishing the national goal set by President Kennedy."
+    },
+    {
+      "question": "Who were the crew members of Apollo 11?",
+      "category": "crew",
+      "mission": "Apollo 11",
+      "ground_truth": "The crew of Apollo 11 consisted of Commander Neil Armstrong, Command Module Pilot Michael Collins, and Lunar Module Pilot Edwin 'Buzz' Aldrin."
+    },
+    {
+      "question": "What malfunction created the emergency in Apollo 13?",
+      "category": "emergency",
+      "mission": "Apollo 13",
+      "ground_truth": "An oxygen tank explosion in the Service Module caused the emergency on Apollo 13, leading to loss of electrical power and oxygen supply."
+    },
+    {
+      "question": "What sequence of events followed the Apollo 13 oxygen tank failure?",
+      "category": "timeline",
+      "mission": "Apollo 13",
+      "ground_truth": "After the oxygen tank explosion, the crew shut down the Command Module, moved to the Lunar Module as a lifeboat, and executed a free-return trajectory around the Moon to return to Earth."
+    },
+    {
+      "question": "Who were the crew members of Apollo 13?",
+      "category": "crew",
+      "mission": "Apollo 13",
+      "ground_truth": "The crew of Apollo 13 consisted of Commander James Lovell, Command Module Pilot John Swigert, and Lunar Module Pilot Fred Haise."
+    },
+    {
+      "question": "What happened during the Challenger disaster?",
+      "category": "disaster_analysis",
+      "mission": "Challenger",
+      "ground_truth": "The Space Shuttle Challenger broke apart 73 seconds after launch on January 28, 1986, due to the failure of an O-ring seal in the right solid rocket booster, resulting in the loss of all seven crew members."
+    },
+    {
+      "question": "What technical components failed in the Challenger accident?",
+      "category": "technical",
+      "mission": "Challenger",
+      "ground_truth": "The primary technical failure was the O-ring seals in the right solid rocket booster's field joint, which failed due to cold temperatures on launch day."
+    },
+    {
+      "question": "What were the key milestones during the Apollo 11 lunar landing?",
+      "category": "timeline",
+      "mission": "Apollo 11",
+      "ground_truth": "Key milestones included lunar orbit insertion, Eagle separation, powered descent, landing at Tranquility Base, EVA, sample collection, ascent, docking, and trans-Earth injection."
+    },
+    {
+      "question": "What was the flight plan structure for Apollo 11?",
+      "category": "technical",
+      "mission": "Apollo 11",
+      "ground_truth": "The Apollo 11 flight plan included launch, Earth orbit checkout, trans-lunar injection, lunar orbit insertion, lunar landing, surface operations, lunar ascent, docking, trans-Earth injection, and splashdown."
+    },
+    {
+      "question": "How did the Apollo 13 crew survive the emergency?",
+      "category": "emergency",
+      "mission": "Apollo 13",
+      "ground_truth": "The crew survived by using the Lunar Module as a lifeboat, conserving power, managing limited resources, and working with Mission Control to improvise solutions including a CO2 scrubber."
+    },
+    {
+      "question": "What were the communication challenges during Apollo missions?",
+      "category": "technical",
+      "mission": "Apollo 11",
+      "ground_truth": "Communications during Apollo missions were handled through the Manned Space Flight Network with ground stations around the world, maintaining contact except during lunar far-side passes."
+    },
+    {
+      "question": "What was the role of the Command Module Pilot during Apollo 11?",
+      "category": "crew",
+      "mission": "Apollo 11",
+      "ground_truth": "Michael Collins, as Command Module Pilot, remained in lunar orbit aboard Columbia while Armstrong and Aldrin descended to the Moon, conducting observations and preparing for the crew's return."
+    },
+    {
+      "question": "What scientific experiments were conducted during Apollo 11?",
+      "category": "technical",
+      "mission": "Apollo 11",
+      "ground_truth": "Apollo 11 deployed the Early Apollo Scientific Experiments Package, collected lunar samples, and set up a laser ranging retroreflector and passive seismometer."
+    },
+    {
+      "question": "What lessons were learned from the Challenger disaster?",
+      "category": "disaster_analysis",
+      "mission": "Challenger",
+      "ground_truth": "Key lessons included the importance of engineering concerns over schedule pressure, improved communication between NASA and contractors, and redesign of the solid rocket boosters."
+    },
+    {
+      "question": "What was the duration of the Apollo 11 mission?",
+      "category": "overview",
+      "mission": "Apollo 11",
+      "ground_truth": "Apollo 11 lasted approximately 8 days, from launch on July 16, 1969, to splashdown on July 24, 1969, with about 21.5 hours spent on the lunar surface."
+    }
+  ]
+}
+

@@ -8,15 +8,16 @@ and feedback collection for continuous improvement.
 
 import streamlit as st
 import os
-import json
-import pandas as pd
+from dotenv import load_dotenv
 
 import ragas_evaluator
 import rag_client
 import llm_client
 
-from pathlib import Path
 from typing import Dict, List, Optional
+
+# Load environment variables
+load_dotenv()
 
 # RAGAS imports
 try:
@@ -24,7 +25,6 @@ try:
     RAGAS_AVAILABLE = True
 except ImportError:
     RAGAS_AVAILABLE = False
-    st.warning("RAGAS not available. Install with: pip install ragas")
 
 # Page configuration
 st.set_page_config(
@@ -35,15 +35,12 @@ st.set_page_config(
 
 def discover_chroma_backends() -> Dict[str, Dict[str, str]]:
     """Discover available ChromaDB backends in the project directory"""
-
     return rag_client.discover_chroma_backends()
 
-#@st.cache_resource
 def initialize_rag_system(chroma_dir: str, collection_name: str):
     """Initialize the RAG system with specified backend (cached for performance)"""
-
     try:
-       return rag_client.initialize_rag_system(chroma_dir, collection_name)
+        return rag_client.initialize_rag_system(chroma_dir, collection_name)
     except Exception as e:
         return None, False, str(e)
 
@@ -58,11 +55,10 @@ def retrieve_documents(collection, query: str, n_results: int = 3,
 
 def format_context(documents: List[str], metadatas: List[Dict]) -> str:
     """Format retrieved documents into context"""
-    
     return rag_client.format_context(documents, metadatas)
 
 def generate_response(openai_key, user_message: str, context: str, 
-                     conversation_history: List[Dict], model: str = "gpt-3.5-turbo") -> str:
+                     conversation_history: List[Dict], model: str = "gpt-4o-mini") -> str:
     """Generate response using OpenAI with context"""
     try:
         return llm_client.generate_response(openai_key, user_message, context, conversation_history, model)
@@ -85,6 +81,8 @@ def display_evaluation_metrics(scores: Dict[str, float]):
     st.sidebar.subheader("📊 Response Quality")
     
     for metric_name, score in scores.items():
+        if metric_name in ['status', 'faithfulness_error', 'answer_relevancy_error']:
+            continue
         if isinstance(score, (int, float)):
             # Color code based on score
             if score >= 0.8:
@@ -101,7 +99,17 @@ def display_evaluation_metrics(scores: Dict[str, float]):
             )
             
             # Add progress bar
-            st.sidebar.progress(score)
+            st.sidebar.progress(min(score, 1.0))
+
+def display_sources(metadatas: List[Dict]):
+    """Display source citations in an expander"""
+    if not metadatas:
+        return
+
+    with st.expander("📚 Sources Used", expanded=False):
+        sources = rag_client.build_source_list(metadatas)
+        for source in sources:
+            st.write(source)
 
 def main():
     st.title("🚀 NASA Space Mission Chat with Evaluation")
@@ -116,7 +124,9 @@ def main():
         st.session_state.last_evaluation = None
     if "last_contexts" not in st.session_state:
         st.session_state.last_contexts = []
-    
+    if "last_metadatas" not in st.session_state:
+        st.session_state.last_metadatas = []
+
     # Sidebar for configuration
     with st.sidebar:
         st.header("🔧 Configuration")
@@ -127,7 +137,7 @@ def main():
         
         if not available_backends:
             st.error("No ChromaDB backends found!")
-            st.info("Please run the embedding pipeline first:\n`python run_text_embedding.py`")
+            st.info("Please run the embedding pipeline first:\n```\npython embedding_pipeline.py --input-dir ./data_text --chroma-dir ./chroma_db --collection-name nasa_missions\n```")
             st.stop()
         
         # Backend selection
@@ -153,35 +163,54 @@ def main():
         )
         
         if not openai_key:
-            st.warning("Please enter your OpenAI API key")
+            st.warning("Please enter your OpenAI API key or set OPENAI_API_KEY environment variable")
             st.stop()
         else:
-            os.environ["CHROMA_OPENAI_API_KEY"] = openai_key
-        
+            os.environ["OPENAI_API_KEY"] = openai_key
+
         # Model selection
         model_choice = st.selectbox(
             "OpenAI Model",
-            options=["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo-preview"],
+            options=["gpt-4o-mini", "gpt-3.5-turbo", "gpt-4", "gpt-4-turbo-preview"],
             help="Choose the OpenAI model for responses"
         )
         
         # Retrieval settings
         st.subheader("🔍 Retrieval Settings")
-        n_docs = st.slider("Documents to retrieve", 1, 10, 3)
-        
+        n_docs = st.slider("Documents to retrieve", 1, 10, 5)
+
+        # Mission filter
+        mission_filter = st.selectbox(
+            "Filter by Mission",
+            options=["All Missions", "Apollo 11", "Apollo 13", "Challenger"],
+            help="Filter retrieved documents by mission"
+        )
+
+        # Convert to filter value
+        filter_value = None if mission_filter == "All Missions" else mission_filter
+
         # Evaluation settings
         st.subheader("📊 Evaluation Settings")
         enable_evaluation = st.checkbox("Enable RAGAS Evaluation", value=RAGAS_AVAILABLE)
         
+        if not RAGAS_AVAILABLE:
+            st.warning("RAGAS not available. Install with: pip install ragas")
+
+        # Clear chat button
+        if st.button("🗑️ Clear Chat History"):
+            st.session_state.messages = []
+            st.session_state.last_evaluation = None
+            st.session_state.last_contexts = []
+            st.session_state.last_metadatas = []
+            st.rerun()
+
         # Initialize RAG system when backend changes
         if (st.session_state.current_backend != selected_backend_key):
             st.session_state.current_backend = selected_backend_key
-            # Clear cache to force reinitialization
             st.cache_resource.clear()
     
     # Initialize RAG system
     with st.spinner("Initializing RAG system..."):
-
         collection, success, error = initialize_rag_system(
             selected_backend["directory"], 
             selected_backend["collection_name"]
@@ -189,12 +218,18 @@ def main():
     
     if not success:
         st.error(f"Failed to initialize RAG system: {error}")
+        st.info("Make sure you have run the embedding pipeline first to create the document collection.")
         st.stop()
     
     # Display evaluation metrics if available
     if st.session_state.last_evaluation and enable_evaluation:
         display_evaluation_metrics(st.session_state.last_evaluation)
     
+    # Display sources from last query
+    if st.session_state.last_metadatas:
+        with st.sidebar:
+            display_sources(st.session_state.last_metadatas)
+
     # Display chat messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -214,17 +249,21 @@ def main():
                 docs_result = retrieve_documents(
                     collection, 
                     prompt, 
-                    n_docs
+                    n_docs,
+                    filter_value
                 )
                 
                 # Format context
                 context = ""
                 contexts_list = []
+                metadatas_list = []
                 if docs_result and docs_result.get("documents"):
                     context = format_context(docs_result["documents"][0], docs_result["metadatas"][0])
                     contexts_list = docs_result["documents"][0]
+                    metadatas_list = docs_result["metadatas"][0]
                     st.session_state.last_contexts = contexts_list
-                
+                    st.session_state.last_metadatas = metadatas_list
+
                 # Generate response
                 response = generate_response(
                     openai_key, 
@@ -235,8 +274,15 @@ def main():
                 )
                 st.markdown(response)
                 
+                # Show retrieved sources
+                if metadatas_list:
+                    with st.expander("📚 Retrieved Sources", expanded=False):
+                        sources = rag_client.build_source_list(metadatas_list)
+                        for source in sources:
+                            st.write(source)
+
                 # Evaluate response quality if enabled
-                if enable_evaluation and RAGAS_AVAILABLE:
+                if enable_evaluation and RAGAS_AVAILABLE and contexts_list:
                     with st.spinner("Evaluating response quality..."):
                         evaluation_scores = evaluate_response_quality(
                             prompt, 
@@ -244,7 +290,13 @@ def main():
                             contexts_list
                         )
                         st.session_state.last_evaluation = evaluation_scores
-        
+
+                        # Display inline evaluation summary
+                        if "error" not in evaluation_scores:
+                            faith_score = evaluation_scores.get('faithfulness', 0)
+                            rel_score = evaluation_scores.get('answer_relevancy', 0)
+                            st.caption(f"📊 Quality: Faithfulness {faith_score:.2f} | Relevancy {rel_score:.2f}")
+
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.rerun()
