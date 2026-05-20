@@ -1,70 +1,119 @@
 # NASA Mission Intelligence System - Evaluation Dataset
-# This file contains test questions for evaluating the RAG system
-# Format: Q: question | Category: category_name
+# This file contains test questions used for testing with expected responses
+# Format: Q: question | Category: category_name | Expected: expected response summary
 
-# Overview Questions
+# ============================================================================
+# OVERVIEW QUESTIONS
+# ============================================================================
+
 Q: What was the main objective of Apollo 11?
 Category: overview
+Expected: Apollo 11's main objective was to perform a crewed lunar landing and return safely to Earth. This fulfilled President Kennedy's goal of landing a man on the Moon before the end of the 1960s. The mission successfully landed Neil Armstrong and Buzz Aldrin on the Moon on July 20, 1969.
 
 Q: What was the duration of the Apollo 11 mission?
 Category: overview
+Expected: Apollo 11 lasted approximately 8 days, from launch on July 16, 1969 to splashdown on July 24, 1969. The crew spent about 21.5 hours on the lunar surface, with approximately 2.5 hours of EVA (extravehicular activity).
 
 Q: What was the goal of the Apollo 13 mission before the accident?
 Category: overview
+Expected: Apollo 13's original mission objective was to land in the Fra Mauro highlands of the Moon and conduct geological surveys. The crew was to collect lunar samples and deploy scientific instruments, similar to previous Apollo missions.
 
-# Crew Questions
+# ============================================================================
+# CREW QUESTIONS
+# ============================================================================
+
 Q: Who were the crew members of Apollo 11?
 Category: crew
+Expected: The Apollo 11 crew consisted of Commander Neil Armstrong, Command Module Pilot Michael Collins, and Lunar Module Pilot Edwin "Buzz" Aldrin. Armstrong and Aldrin landed on the Moon while Collins remained in lunar orbit aboard the Command Module Columbia.
 
 Q: Who were the crew members of Apollo 13?
 Category: crew
+Expected: The Apollo 13 crew consisted of Commander James Lovell, Command Module Pilot John Swigert (who replaced Ken Mattingly shortly before launch), and Lunar Module Pilot Fred Haise. All three astronauts survived the mission despite the onboard emergency.
 
 Q: What was the role of the Command Module Pilot during Apollo 11?
 Category: crew
+Expected: Michael Collins, as Command Module Pilot, remained in lunar orbit aboard Columbia while Armstrong and Aldrin descended to the Moon's surface. He conducted observations, took photographs, and prepared the spacecraft for the crew's return and the journey back to Earth.
 
-# Technical Questions
+# ============================================================================
+# TECHNICAL QUESTIONS
+# ============================================================================
+
 Q: What technical components failed in the Challenger accident?
 Category: technical
+Expected: The Challenger accident was caused by the failure of an O-ring seal in the right solid rocket booster's field joint. The O-rings failed to seal properly due to cold temperatures on launch day (around 36°F), allowing hot gases to escape and ultimately breach the external fuel tank.
 
 Q: What was the flight plan structure for Apollo 11?
 Category: technical
+Expected: The Apollo 11 flight plan included: launch and Earth orbit insertion, trans-lunar injection (TLI), lunar orbit insertion (LOI), lunar module separation and descent, lunar surface operations and EVA, lunar ascent and docking, trans-Earth injection (TEI), and splashdown in the Pacific Ocean.
 
 Q: What scientific experiments were conducted during Apollo 11?
 Category: technical
+Expected: Apollo 11 deployed the Early Apollo Scientific Experiments Package (EASEP), which included a passive seismometer and a laser ranging retroreflector. The crew also collected approximately 47.5 pounds (21.5 kg) of lunar samples for analysis on Earth.
 
 Q: What were the communication challenges during Apollo missions?
 Category: technical
+Expected: Communications during Apollo missions were handled through the Manned Space Flight Network (MSFN) with tracking stations around the world. The main challenge was loss of signal during lunar far-side passes when the spacecraft was behind the Moon. Communication delays were approximately 1.3 seconds each way.
 
-# Emergency Questions
+# ============================================================================
+# EMERGENCY QUESTIONS
+# ============================================================================
+
 Q: What malfunction created the emergency in Apollo 13?
 Category: emergency
+Expected: The Apollo 13 emergency was caused by an oxygen tank explosion in the Service Module. On April 13, 1970, approximately 56 hours into the mission, oxygen tank No. 2 exploded, damaging oxygen tank No. 1 and the fuel cells, leading to loss of electrical power and oxygen supply in the Command Module.
 
 Q: How did the Apollo 13 crew survive the emergency?
 Category: emergency
+Expected: The crew survived by using the Lunar Module (Aquarius) as a lifeboat. They powered down the Command Module to conserve its batteries for reentry, used the LM's systems for life support, executed a free-return trajectory around the Moon, and improvised a CO2 scrubber using materials on board. Mission Control provided crucial guidance throughout.
 
 Q: What immediate actions were taken after the Apollo 13 explosion?
 Category: emergency
+Expected: After the explosion, the crew and Mission Control quickly assessed the damage, shut down fuel cells in the dying Service Module, and transferred to the Lunar Module for life support. They executed course corrections using the LM's descent engine and began strict power and water rationing to ensure survival until Earth return.
 
-# Timeline Questions
+# ============================================================================
+# TIMELINE QUESTIONS
+# ============================================================================
+
 Q: What sequence of events followed the Apollo 13 oxygen tank failure?
 Category: timeline
+Expected: After the explosion: the crew reported "Houston, we've had a problem," Mission Control assessed systems failures, the crew transferred to the Lunar Module, abort procedures were initiated, the spacecraft swung around the Moon using a free-return trajectory, multiple course corrections were made, and the crew safely splashed down on April 17, 1970.
 
 Q: What were the key milestones during the Apollo 11 lunar landing?
 Category: timeline
+Expected: Key milestones: July 16 launch, July 19 lunar orbit insertion, July 20 Eagle separation from Columbia, powered descent initiation, "The Eagle has landed" at Tranquility Base (4:17 PM EDT), Neil Armstrong's first step (10:56 PM EDT), flag planting, sample collection, July 21 lunar ascent and docking, July 24 splashdown.
 
 Q: What was the timeline of events during the Challenger launch?
 Category: timeline
+Expected: On January 28, 1986: launch occurred at 11:38 AM EST, vehicle cleared the tower normally, at T+59 seconds a plume appeared from the right SRB, at T+73 seconds the external tank failed and the vehicle broke apart. The crew cabin continued on a ballistic trajectory before impacting the ocean.
 
-# Disaster Analysis Questions
+# ============================================================================
+# DISASTER ANALYSIS QUESTIONS
+# ============================================================================
+
 Q: What happened during the Challenger disaster?
 Category: disaster_analysis
+Expected: On January 28, 1986, Space Shuttle Challenger broke apart 73 seconds after launch, killing all seven crew members. The disaster was caused by the failure of O-ring seals in the right solid rocket booster due to cold weather conditions. The failure allowed hot gases to escape, leading to structural failure of the external tank.
 
 Q: What lessons were learned from the Challenger disaster?
 Category: disaster_analysis
+Expected: Key lessons included: the importance of heeding engineering concerns over schedule pressure, the need for improved communication between NASA and contractors, mandatory redesign of the solid rocket boosters, establishment of better safety protocols, and the creation of the Office of Safety, Reliability, and Quality Assurance.
 
 Q: What were the contributing factors to the Challenger accident?
 Category: disaster_analysis
+Expected: Contributing factors included: cold temperatures affecting O-ring resilience, pressure to maintain launch schedule, inadequate communication of engineer concerns to decision-makers, flawed safety culture, and insufficient testing of components under cold conditions. The Rogers Commission identified these organizational and technical failures.
 
 Q: How did cold weather affect the Challenger launch?
 Category: disaster_analysis
+Expected: The launch occurred at approximately 36°F (2°C), well below the O-rings' qualified temperature range. The cold caused the rubber O-rings to lose flexibility, preventing them from sealing the joint between SRB segments. This allowed hot combustion gases to escape and burn through the external tank, causing the catastrophic failure.
 
+# ============================================================================
+# TEST EXECUTION NOTES
+# ============================================================================
+
+# When testing the system, verify that:
+# 1. Retrieved context is relevant to the question
+# 2. Answers are grounded in the retrieved documents
+# 3. Sources are properly cited
+# 4. Faithfulness scores are > 0.6 for good answers
+# 5. Answer relevancy scores are > 0.7 for on-topic responses
+# 6. The system admits uncertainty when context is insufficient
